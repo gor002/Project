@@ -1,8 +1,11 @@
-class Grass extends LivingCreature {
+var LivingCreature = require("./class");
+
+module.exports = class Grass extends LivingCreature {
 
 
     mult() {
-        var empty = random(this.chooseCell(0));
+        var zang = this.chooseCell(0);
+        var empty = zang[Math.floor(Math.random()*zang.length)];
         this.multiply++;
         if (empty && this.multiply > 3) {
 

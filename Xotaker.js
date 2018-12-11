@@ -1,4 +1,7 @@
-class Xotaker extends LivingCreature {
+var LivingCreature = require("./class");
+
+
+module.exports = class Xotaker extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
         this.multiply = 1;
@@ -9,8 +12,8 @@ class Xotaker extends LivingCreature {
     }
 
     mult() {
-        var empty = random(this.chooseCell(0));
-        this.multiply++;
+        var zang = this.chooseCell(0);
+        var empty = zang[Math.floor(Math.random()*zang.length)];
         if (empty && this.multiply > 8) {
 
             var newX = empty[0];
@@ -49,7 +52,8 @@ class Xotaker extends LivingCreature {
 
 
     move() {
-        var empty = random(this.chooseCell(0));
+        var zang = this.chooseCell(0);
+        var empty = zang[Math.floor(Math.random()*zang.length)];
         this.energy--;
         if (empty) {
             var newX = empty[0];
@@ -63,7 +67,8 @@ class Xotaker extends LivingCreature {
     }
 
     eat() {
-        var gr = random(this.chooseCell(1));
+        var zang = this.chooseCell(0);
+        var gr = zang[Math.floor(Math.random()*zang.length)];
         if (gr) {
             this.energy++;
             var newX = gr[0];
