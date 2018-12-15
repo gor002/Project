@@ -3,24 +3,28 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+
+
 app.use(express.static("."));
 app.get('/', function (req, res) {
     res.redirect('index.html');
 });
 server.listen(3000);
-var matrix = [];
+matrix = [];
 
 
 
-
+io.on('connection', function (socket) { 
+ 
+});
 var n = 60;
 var m = 60;
 
-var grassArr = [];
-var xotakerArr = [];
-var gishatichArr = [];
-var kerpar1Arr = [];
-var kerpar2Arr = [];
+grassArr = [];
+xotakerArr = [];
+gishatichArr = [];
+kerpar1Arr = [];
+kerpar2Arr = [];
 
 
 for (var i = 0; i < n; i++) {
@@ -69,7 +73,6 @@ for (var y = 0; y < matrix.length; y++) {
     }
 
 }
-console.log(grassArr);
 
 
 
@@ -115,11 +118,12 @@ function drawServerayin() {
 
 
     }
-    console.log(matrix);
+    //console.log(matrix);
+    io.sockets.emit("matrix", matrix);
 
 }
 
-setInterval(drawServerayin, 100);
+setInterval(drawServerayin, 500);
 
 
 

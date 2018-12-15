@@ -67,7 +67,8 @@ module.exports = class Xotaker extends LivingCreature {
     }
 
     eat() {
-        var zang = this.chooseCell(0);
+        this.multiply++;
+        var zang = this.chooseCell(1);
         var gr = zang[Math.floor(Math.random()*zang.length)];
         if (gr) {
             this.energy++;
