@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-
+var fs = require("fs");
 
 
 app.use(express.static("."));
@@ -13,12 +13,15 @@ server.listen(3000);
 matrix = [];
 
 
+Grassinit = 0;
+Xotakerinit = 0;
+
 
 io.on('connection', function (socket) {
 
 });
-var n = 60;
-var m = 60;
+var n = 30;
+var m = 30;
 
 grassArr = [];
 xotakerArr = [];
@@ -52,10 +55,12 @@ for (var y = 0; y < matrix.length; y++) {
         if (matrix[y][x] == 1) {
             var gr1 = new Grass(x, y, 1);
             grassArr.push(gr1);
+            Grassinit++;
         }
         if (matrix[y][x] == 2) {
             var gr1 = new Xotaker(x, y, 2);
             xotakerArr.push(gr1);
+            Xotakerinit++;
         }
         if (matrix[y][x] == 3) {
             var gr1 = new Gishatich(x, y, 3);
@@ -145,7 +150,8 @@ for (var y = 0; y < matrix.length; y++) {
 exanakNow = "Dzmer"
 
 
-function wheter(){
+
+function wheter() {
     if (exanakNow == "Dzmer") {
         exanakNow = "Garun";
     }
@@ -159,10 +165,51 @@ function wheter(){
         exanakNow = "Dzmer";
     }
 }
+SpecialWeather = "LongNight";
+function Special() {
+    if (SpecialWeather == "LongNight") {
+        SpecialWeather = "Morning";
+    }
+    else if (SpecialWeather == "Morning") {
+        SpecialWeather = "LongNight";
+    }
+
+}
+
+
+statistics = { "objarr": [] };
+
+
+
+setInterval(function () {
+    statistics.objarr.push({
+        "Grass_Born": Grassinit,
+        "Xotaker_Born": Xotakerinit,
+        "Gishatich_quantity": gishatichArr.length,
+        "Kerpar1_quantity": kerpar1Arr.length,
+    })
+    fs.writeFile("statistics.json", JSON.stringify(statistics, null, 3), function (err) {
+        if (err) throw err;
+    })
+}, 13000);
+
+
+
 function drawServerayin() {
 
     for (var i in grassArr) {
-        grassArr[i].mult();
+
+        mult = grassArr[i].multiply;
+        if (SpecialWeather == "LongNight") {
+            grassArr[i].multiply = mult / 2;
+
+
+        }
+        else {
+            grassArr[i].multiply = mult * 2;
+            grassArr[i].mult();
+        }
+
     }
     for (var i in xotakerArr) {
         xotakerArr[i].mult();
@@ -198,7 +245,9 @@ function drawServerayin() {
 
 
 
-    io.sockets.emit('send matrix', { "matrix": matrix, "exanakNow": exanakNow });
+    io.sockets.emit('send matrix', { "matrix": matrix, "exanakNow": exanakNow, "SpecialWeather": SpecialWeather });
 }
-setInterval(wheter,4000);
-setInterval(drawServerayin,200);
+
+setInterval(Special, 8000);
+setInterval(wheter, 4000);
+setInterval(drawServerayin, 200);

@@ -2,7 +2,7 @@ module.exports = class LivingCreature {
     constructor(x, y, index) {
         this.x = x;
         this.y = y;
-        this.multiply = 0;
+        this.multiply = 1;
         this.index = index;
         this.directions = [
             [this.x - 1, this.y - 1],

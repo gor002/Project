@@ -4,7 +4,7 @@ var LivingCreature = require("./class");
 module.exports = class Kerpar1 extends LivingCreature {
     constructor(x, y, index) {
         super(x,y,index);
-        this.multiply = 1;
+        this.multiply = 2;
         this.energy = 5;
 
 
@@ -101,7 +101,7 @@ module.exports = class Kerpar1 extends LivingCreature {
     }
 
     die() {
-        if (this.energy <= 0) {
+        if (this.energy <= 1) {
             matrix[this.y][this.x] = 0;
             for (var i in kerpar1Arr) {
                 if (kerpar1Arr[i].x == this.x && kerpar1Arr[i].y == this.y) {

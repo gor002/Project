@@ -1,36 +1,46 @@
+var socket = io();
+var side = 15;
+var n = 30;
+var m = 30;
+
 function setup() {
     frameRate(5);
-    createCanvas(60 * side, 60 * side);
-    background('#acacac');
+    createCanvas(n * side, m * side);
+    background("#acacac");
 }
 
 
-socket = io();
-side = 15;
+
 
 
 
 
 function drawMatrix(obj) {
+    // if(obj.SpecialWeather == "LongNight"){
+    //     background("black");
+    // }
+    // else{
+    //     background("yellow");
+    // }
 
     console.log(obj.exanakNow);
+    console.log(obj.SpecialWeather);
     for (var y = 0; y < obj.matrix.length; y++) {
         for (var x = 0; x < obj.matrix[y].length; x++) {
-            
-            if(obj.matrix[y][x] == 1 && obj.exanakNow == "Dzmer"){
+
+            if (obj.matrix[y][x] == 1 && obj.exanakNow == "Dzmer") {
                 fill("white");
             }
-            if(obj.matrix[y][x] == 1 && obj.exanakNow == "Garun"){
+            if (obj.matrix[y][x] == 1 && obj.exanakNow == "Garun") {
                 fill("GreenYellow");
             }
-            if(obj.matrix[y][x] == 1 && obj.exanakNow == "Amar"){
+            if (obj.matrix[y][x] == 1 && obj.exanakNow == "Amar") {
                 fill("Orange");
             }
 
-            if(obj.matrix[y][x] == 1 && obj.exanakNow == "Ashun"){
+            if (obj.matrix[y][x] == 1 && obj.exanakNow == "Ashun") {
                 fill("brown");
             }
-
             if (obj.matrix[y][x] == 2) {
                 fill("yellow");
             }
@@ -41,10 +51,15 @@ function drawMatrix(obj) {
                 fill("blue");
             }
             if (obj.matrix[y][x] == 5) {
-                fill("black");
+                fill("DarkBlue");
             }
             else if (obj.matrix[y][x] == 0) {
-                fill("#acacac");
+                if (obj.SpecialWeather == "LongNight") {
+                    fill("black");
+                }
+                else {
+                    fill("#acacac");
+                }
             }
 
             rect(x * side, y * side, side, side);

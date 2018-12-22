@@ -8,7 +8,7 @@ module.exports = class Grass extends LivingCreature {
         var empty = zang[Math.floor(Math.random()*zang.length)];
         this.multiply++;
         if (empty && this.multiply > 3) {
-
+            Grassinit++;
             var newX = empty[0];
             var newY = empty[1];
             matrix[newY][newX] = 1;

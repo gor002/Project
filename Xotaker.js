@@ -4,8 +4,8 @@ var LivingCreature = require("./class");
 module.exports = class Xotaker extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index);
-        this.multiply = 1;
-        this.energy = 3;
+        this.multiply = 6;
+        this.energy = 4;
 
 
 
@@ -15,7 +15,7 @@ module.exports = class Xotaker extends LivingCreature {
         var zang = this.chooseCell(0);
         var empty = zang[Math.floor(Math.random()*zang.length)];
         if (empty && this.multiply > 8) {
-
+            Xotakerinit++;
             var newX = empty[0];
             var newY = empty[1];
             matrix[newY][newX] = 2;
@@ -92,7 +92,7 @@ module.exports = class Xotaker extends LivingCreature {
     }
 
     die() {
-        if (this.energy < 0) {
+        if (this.energy < 1) {
             matrix[this.y][this.x] = 0;
             for (var i in xotakerArr) {
                 if (xotakerArr[i].x == this.x && xotakerArr[i].y == this.y) {
